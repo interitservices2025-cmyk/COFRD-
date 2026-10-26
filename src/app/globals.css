@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cofrd-blue: #1b365d;
+  --color-cofrd-blue-dark: #11233d;
+  --color-cofrd-blue-light: #eef3f9;
+  --color-cofrd-orange: #f97316;
+  --color-cofrd-orange-dark: #ea580c;
+  --color-cofrd-orange-light: #fff7ed;
+}
+
+:root {
+  --cofrd-blue: #1b365d;
+  --cofrd-blue-dark: #11233d;
+  --cofrd-blue-light: #eef3f9;
+  --cofrd-orange: #f97316;
+  --cofrd-orange-dark: #ea580c;
+  --cofrd-orange-light: #fff7ed;
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibilité et focus visible aux couleurs officielles */
+:focus-visible {
+  outline: 3px solid #1b365d;
+  outline-offset: 2px;
+}
+
+/* Animations et transitions respectant les préférences utilisateurs */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Styles d'impression pour les billets de spectacle */
+@media print {
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}

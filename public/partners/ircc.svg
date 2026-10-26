@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 60" width="250" height="60">
+  <g transform="translate(10, 10)">
+    <!-- Drapeau Canadien officiel -->
+    <rect x="0" y="2" width="10" height="36" fill="#D80027" />
+    <rect x="10" y="2" width="20" height="36" fill="#FFFFFF" />
+    <rect x="30" y="2" width="10" height="36" fill="#D80027" />
+    <path d="M 20 8 L 22 14 L 27 13 L 24 18 L 28 21 L 23 23 L 24 28 L 20 25 L 16 28 L 17 23 L 12 21 L 16 18 L 13 13 L 18 14 Z" fill="#D80027" />
+    <rect x="19.3" y="25" width="1.4" height="6" fill="#D80027" />
+
+    <!-- Texte bilingue officiel IRCC -->
+    <text x="48" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Immigration Canada</text>
+    <text x="48" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">IRCC · Réfugiés et Citoyenneté</text>
+  </g>
+</svg>

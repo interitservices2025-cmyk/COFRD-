@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Extraction des logos partenaires</title>
+</head>
+<body style="font-family:sans-serif;padding:20px;background:#f8fafc;">
+  <h2>Outil d'extraction des logos partenaires COFRD</h2>
+  <div id="status" style="font-weight:bold;margin:20px 0;padding:15px;background:#e2e8f0;border-radius:8px;">Initialisation...</div>
+  <div id="preview" style="display:flex;gap:15px;flex-wrap:wrap;"></div>
+
+  <script>
+    async function cropAndSave() {
+      const statusEl = document.getElementById('status');
+      const previewEl = document.getElementById('preview');
+      statusEl.textContent = 'Chargement de l\'affiche officielle...';
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = '/Affiche-corrige-SAISON-CULTURELLE-2026-2027-1024x431.png.webp';
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = () => reject(new Error('Erreur chargement image'));
+      });
+
+      statusEl.textContent = 'Affiche chargée (' + img.naturalWidth + 'x' + img.naturalHeight + '). Découpage des logos partenaires...';
+
+      // Coordonnées précises des logos sur la bande blanche inférieure (y: 370 à 428)
+      const logos = [
+        { filename: 'patrimoine-canadien.png', x: 22, y: 375, w: 175, h: 50 },
+        { filename: 'ontario.png', x: 228, y: 382, w: 98, h: 42 },
+        { filename: 'conseil-des-arts-ontario.png', x: 338, y: 375, w: 125, h: 50 },
+        { filename: 'monavenir.png', x: 488, y: 375, w: 105, h: 50 },
+        { filename: 'la-cite.png', x: 615, y: 378, w: 95, h: 45 },
+        { filename: 'desjardins.png', x: 720, y: 378, w: 110, h: 45 },
+        { filename: 'viamonde.png', x: 845, y: 375, w: 155, h: 50 }
+      ];
+
+      const results = [];
+
+      for (const item of logos) {
+        const canvas = document.createElement('canvas');
+        canvas.width = item.w;
+        canvas.height = item.h;
+        const ctx = canvas.getContext('2d');
+
+        // Dessiner la zone découpée
+        ctx.drawImage(img, item.x, item.y, item.w, item.h, 0, 0, item.w, item.h);
+
+        // Rendre les pixels de fond blanc transparents pour une intégration propre sur tout fond
+        const imgData = ctx.getImageData(0, 0, item.w, item.h);
+        const d = imgData.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const r = d[i];
+          const g = d[i + 1];
+          const b = d[i + 2];
+          // Si le pixel est presque blanc (> 242)
+          if (r > 242 && g > 242 && b > 242) {
+            d[i + 3] = 0; // Transparent
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // Aperçu visuel
+        const imgElem = document.createElement('img');
+        imgElem.src = dataUrl;
+        imgElem.style.border = '1px solid #cbd5e1';
+        imgElem.style.padding = '8px';
+        imgElem.style.background = '#ffffff';
+        imgElem.style.borderRadius = '6px';
+        imgElem.title = item.filename;
+        previewEl.appendChild(imgElem);
+
+        // Envoyer à l'API locale
+        try {
+          const res = await fetch('/api/admin/save-partner-asset', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filename: item.filename, dataUrl })
+          });
+          const json = await res.json();
+          results.push({ filename: item.filename, success: json.success });
+        } catch (err) {
+          results.push({ filename: item.filename, success: false, error: err.message });
+        }
+      }
+
+      statusEl.innerHTML = '<span style="color:green;">✓ SUCCÈS : ' + results.filter(r => r.success).length + ' / ' + logos.length + ' logos partenaires extraits et enregistrés dans public/partners/</span>';
+      console.log('EXTRACTION COMPLETE:', results);
+    }
+
+    window.addEventListener('DOMContentLoaded', cropAndSave);
+  </script>
+</body>
+</html>
