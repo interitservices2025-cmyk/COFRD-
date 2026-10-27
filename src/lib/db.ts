@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { EventItem, NewsArticle, ReservationParticipant } from './types';
 import { INITIAL_EVENTS, INITIAL_NEWS, INITIAL_RESERVATIONS } from './data';
 import { generateReservationCode } from './ticket-generator';
@@ -11,46 +12,96 @@ interface DatabaseSchema {
   lastUpdated: string;
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'cofrd_db.json');
+// Emplacements de persistance
+const LOCAL_DATA_DIR = path.join(process.cwd(), 'data');
+const LOCAL_DB_FILE = path.join(LOCAL_DATA_DIR, 'cofrd_db.json');
+const TMP_DB_FILE = path.join(os.tmpdir(), 'cofrd_db.json');
 
-// S'assure que le dossier et le fichier de données existent
-function ensureDbExists(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
+// Cache singleton en mémoire pour le runtime serverless et le développement
+let inMemoryDb: DatabaseSchema | null = null;
 
-  if (!fs.existsSync(DB_FILE)) {
-    const initialData: DatabaseSchema = {
-      events: INITIAL_EVENTS,
-      reservations: INITIAL_RESERVATIONS,
-      news: INITIAL_NEWS,
-      lastUpdated: new Date().toISOString(),
-    };
-    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
-  }
+/**
+ * Retourne le jeu de données par défaut complet et officiel (embarqué dans le bundle).
+ */
+function getDefaultData(): DatabaseSchema {
+  return {
+    events: INITIAL_EVENTS,
+    reservations: INITIAL_RESERVATIONS,
+    news: INITIAL_NEWS,
+    lastUpdated: new Date().toISOString(),
+  };
 }
 
+/**
+ * Lecture de la base de données : STRICTEMENT EN LECTURE SEULE.
+ * Ne tente JAMAIS de créer de dossier (mkdir) ni d'écrire de fichier lors d'une lecture,
+ * garantissant ainsi la compatibilité totale avec les environnements serverless en lecture seule (Vercel).
+ */
 function readDb(): DatabaseSchema {
-  ensureDbExists();
-  try {
-    const content = fs.readFileSync(DB_FILE, 'utf-8');
-    return JSON.parse(content);
-  } catch (err) {
-    console.error('Erreur de lecture de la base de données:', err);
-    return {
-      events: INITIAL_EVENTS,
-      reservations: INITIAL_RESERVATIONS,
-      news: INITIAL_NEWS,
-      lastUpdated: new Date().toISOString(),
-    };
+  // 1. Retourner le cache mémoire s'il est déjà initialisé
+  if (inMemoryDb) {
+    return inMemoryDb;
   }
+
+  // 2. Tenter de lire le fichier local si disponible (développement local)
+  try {
+    if (fs.existsSync(LOCAL_DB_FILE)) {
+      const content = fs.readFileSync(LOCAL_DB_FILE, 'utf-8');
+      const parsed = JSON.parse(content);
+      if (parsed && Array.isArray(parsed.events)) {
+        inMemoryDb = parsed;
+        return inMemoryDb!;
+      }
+    }
+  } catch (err) {
+    console.warn('[DB] Lecture du fichier local ignorée, fallback vers la source suivante:', err);
+  }
+
+  // 3. Tenter de lire depuis le stockage temporaire Vercel (/tmp)
+  try {
+    if (fs.existsSync(TMP_DB_FILE)) {
+      const content = fs.readFileSync(TMP_DB_FILE, 'utf-8');
+      const parsed = JSON.parse(content);
+      if (parsed && Array.isArray(parsed.events)) {
+        inMemoryDb = parsed;
+        return inMemoryDb!;
+      }
+    }
+  } catch (err) {
+    console.warn('[DB] Lecture du fichier temporaire /tmp ignorée:', err);
+  }
+
+  // 4. Fallback immédiat et sécurisé : initialiser le cache avec les données officielles embarquées
+  inMemoryDb = getDefaultData();
+  return inMemoryDb;
 }
 
+/**
+ * Écriture de la base de données : met à jour la mémoire puis tente de persister
+ * sur le système de fichiers (local ou /tmp sur Vercel) sans jamais bloquer ni faire crasher l'application.
+ */
 function writeDb(data: DatabaseSchema): void {
-  ensureDbExists();
   data.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  // Mise à jour immédiate de la mémoire (source de vérité runtime)
+  inMemoryDb = data;
+
+  // 1. Tenter la persistance locale (pour le développement sous Windows/Linux)
+  try {
+    if (!fs.existsSync(LOCAL_DATA_DIR)) {
+      fs.mkdirSync(LOCAL_DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(LOCAL_DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    return;
+  } catch {
+    // Échec attendu dans les conteneurs serverless à système de fichiers en lecture seule (/var/task)
+  }
+
+  // 2. Fallback Vercel/Lambda : persistance dans os.tmpdir() (/tmp est le seul dossier inscriptible)
+  try {
+    fs.writeFileSync(TMP_DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (tmpErr) {
+    console.warn('[DB] Avertissement: Impossible de persister sur le disque temporaire serverless:', tmpErr);
+  }
 }
 
 export const db = {

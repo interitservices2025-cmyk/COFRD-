@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { EventItem } from '@/lib/types';
 import HeroSection from '@/components/home/HeroSection';
 import ServicesGrid from '@/components/home/ServicesGrid';
 import StatsSection from '@/components/home/StatsSection';
@@ -10,9 +11,16 @@ import PartnersSection from '@/components/home/PartnersSection';
 // Rendu à chaque requête : événements issus de la base
 export const dynamic = 'force-dynamic';
 
-// Récupérer les événements publiés (rendu côté serveur)
-function getPublishedEvents() {
-  return db.getEvents().filter((e) => e.status === 'published');
+// Récupérer les événements publiés (rendu côté serveur sécurisé)
+function getPublishedEvents(): EventItem[] {
+  try {
+    const all = db.getEvents();
+    if (!Array.isArray(all)) return [];
+    return all.filter((e) => e && e.status === 'published');
+  } catch (err) {
+    console.error('Erreur lors de la récupération des événements sur la page d\'accueil:', err);
+    return [];
+  }
 }
 
 export default function HomePage() {

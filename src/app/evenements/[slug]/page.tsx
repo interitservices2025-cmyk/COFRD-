@@ -11,8 +11,13 @@ interface Props {
 export const dynamic = 'force-dynamic';
 
 function getPublishedEvent(slug: string) {
-  const event = db.getEventById(slug);
-  return event && event.status === 'published' ? event : undefined;
+  try {
+    const event = db.getEventById(slug);
+    return event && event.status === 'published' ? event : undefined;
+  } catch (err) {
+    console.error(`Erreur lors de la récupération de l'événement ${slug}:`, err);
+    return undefined;
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
