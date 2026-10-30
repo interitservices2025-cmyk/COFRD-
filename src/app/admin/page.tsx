@@ -242,25 +242,25 @@ export default function AdminPage() {
     <div className="min-h-screen bg-slate-50">
       {/* Bannière admin */}
       <div className="bg-slate-900 text-white py-4 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="w-6 h-6 text-amber-400" />
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 shrink-0" />
             <div>
-              <span className="font-extrabold text-white text-lg">Espace Administration — COFRD</span>
-              <span className="text-xs text-slate-400 ml-3 hidden sm:inline">Portail de gestion interne</span>
+              <span className="font-extrabold text-white text-sm sm:text-lg">Espace Administration — COFRD</span>
+              <span className="text-xs text-slate-400 ml-3 hidden md:inline">Portail de gestion interne</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={refresh}
-              className="flex items-center gap-2 text-xs text-slate-300 hover:text-white transition px-3 py-2 rounded-lg hover:bg-slate-800 border border-slate-700"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs text-slate-300 hover:text-white transition px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-slate-800 border border-slate-700"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Actualiser</span>
             </button>
             <button
               onClick={handleLogout}
-              className="text-xs text-slate-300 hover:text-white transition px-3 py-2 rounded-lg hover:bg-slate-800 border border-slate-700"
+              className="text-xs text-slate-300 hover:text-white transition px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-slate-800 border border-slate-700"
             >
               Déconnexion
             </button>
@@ -304,7 +304,7 @@ export default function AdminPage() {
         {/* ONGLET 1 : VUE D'ENSEMBLE */}
         {!loading && activeTab === 'overview' && (
           <div className="space-y-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {[
                 { label: 'Événements publiés', value: publishedEvents, sub: `${events.length} au total`, icon: Calendar, color: 'text-blue-600 bg-blue-50' },
                 { label: 'Inscriptions confirmées', value: confirmedCount, sub: `${reservations.length} toutes réservations`, icon: Ticket, color: 'text-emerald-600 bg-emerald-50' },
@@ -313,12 +313,12 @@ export default function AdminPage() {
               ].map((kpi, i) => {
                 const Icon = kpi.icon;
                 return (
-                  <div key={i} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-                    <div className={`w-11 h-11 rounded-xl ${kpi.color} flex items-center justify-center mb-4`}>
+                  <div key={i} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
+                    <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${kpi.color} flex items-center justify-center mb-3 sm:mb-4`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <div className="text-2xl font-black text-slate-900">{kpi.value}</div>
-                    <div className="text-sm font-semibold text-slate-700 mt-1">{kpi.label}</div>
+                    <div className="text-xl sm:text-2xl font-black text-slate-900">{kpi.value}</div>
+                    <div className="text-xs sm:text-sm font-semibold text-slate-700 mt-1">{kpi.label}</div>
                     <div className="text-xs text-slate-400">{kpi.sub}</div>
                   </div>
                 );
@@ -327,7 +327,7 @@ export default function AdminPage() {
 
             {/* Inscriptions récentes */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <div className="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-6 border-b border-slate-100">
                 <h2 className="text-lg font-bold text-slate-900">Dernières inscriptions enregistrées</h2>
                 <button
                   onClick={() => exportCSV()}
@@ -396,78 +396,80 @@ export default function AdminPage() {
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
-                    <th className="text-left px-6 py-3">Événement</th>
-                    <th className="text-left px-6 py-3">Date</th>
-                    <th className="text-left px-6 py-3">Capacité</th>
-                    <th className="text-left px-6 py-3">Inscriptions</th>
-                    <th className="text-left px-6 py-3">Statut</th>
-                    <th className="text-left px-6 py-3">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {events.map((evt) => {
-                    const fill = Math.round((evt.reservedCount / evt.capacity) * 100);
-                    return (
-                      <tr key={evt.id} className="hover:bg-slate-50/50 transition">
-                        <td className="px-6 py-4">
-                          <div className="font-semibold text-slate-900 max-w-[220px] truncate">{evt.title}</div>
-                          <div className="text-xs text-slate-400">{evt.category} · {evt.city}</div>
-                        </td>
-                        <td className="px-6 py-4 text-xs text-slate-600 whitespace-nowrap">{formatDateFrench(evt.dateStart)}</td>
-                        <td className="px-6 py-4 text-slate-700">{evt.capacity} places</td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-2">
-                            <span className="text-slate-900 font-semibold text-xs">{evt.reservedCount}/{evt.capacity}</span>
-                            <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                              <div
-                                className={`h-full rounded-full ${fill >= 90 ? 'bg-rose-500' : fill >= 70 ? 'bg-amber-500' : 'bg-emerald-500'}`}
-                                style={{ width: `${Math.min(100, fill)}%` }}
-                              />
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+                      <th className="text-left px-6 py-3">Événement</th>
+                      <th className="text-left px-6 py-3">Date</th>
+                      <th className="text-left px-6 py-3">Capacité</th>
+                      <th className="text-left px-6 py-3">Inscriptions</th>
+                      <th className="text-left px-6 py-3">Statut</th>
+                      <th className="text-left px-6 py-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {events.map((evt) => {
+                      const fill = Math.round((evt.reservedCount / evt.capacity) * 100);
+                      return (
+                        <tr key={evt.id} className="hover:bg-slate-50/50 transition">
+                          <td className="px-6 py-4">
+                            <div className="font-semibold text-slate-900 max-w-[220px] truncate">{evt.title}</div>
+                            <div className="text-xs text-slate-400">{evt.category} · {evt.city}</div>
+                          </td>
+                          <td className="px-6 py-4 text-xs text-slate-600 whitespace-nowrap">{formatDateFrench(evt.dateStart)}</td>
+                          <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{evt.capacity} places</td>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-slate-900 font-semibold text-xs">{evt.reservedCount}/{evt.capacity}</span>
+                              <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div
+                                  className={`h-full rounded-full ${fill >= 90 ? 'bg-rose-500' : fill >= 70 ? 'bg-amber-500' : 'bg-emerald-500'}`}
+                                  style={{ width: `${Math.min(100, fill)}%` }}
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-bold ${
-                            evt.status === 'published' ? 'bg-emerald-100 text-emerald-700' :
-                            evt.status === 'draft' ? 'bg-amber-100 text-amber-700' :
-                            'bg-slate-100 text-slate-600'
-                          }`}>
-                            {evt.status === 'published' ? 'Publié' : 'Brouillon'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center gap-1">
-                            <button
-                              onClick={() => handleTogglePublish(evt)}
-                              title={evt.status === 'published' ? 'Passer en brouillon' : 'Publier'}
-                              className="p-1.5 text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition"
-                            >
-                              <Eye className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => exportCSV(evt.id)}
-                              title="Exporter les participants"
-                              className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition"
-                            >
-                              <Download className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDeleteEvent(evt.id)}
-                              title="Supprimer"
-                              className="p-1.5 text-slate-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-bold ${
+                              evt.status === 'published' ? 'bg-emerald-100 text-emerald-700' :
+                              evt.status === 'draft' ? 'bg-amber-100 text-amber-700' :
+                              'bg-slate-100 text-slate-600'
+                            }`}>
+                              {evt.status === 'published' ? 'Publié' : 'Brouillon'}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center gap-1">
+                              <button
+                                onClick={() => handleTogglePublish(evt)}
+                                title={evt.status === 'published' ? 'Passer en brouillon' : 'Publier'}
+                                className="p-1.5 text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => exportCSV(evt.id)}
+                                title="Exporter les participants"
+                                className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition"
+                              >
+                                <Download className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteEvent(evt.id)}
+                                title="Supprimer"
+                                className="p-1.5 text-slate-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -577,8 +579,8 @@ export default function AdminPage() {
 
       {/* MODAL CRÉATION NOUVEL ÉVÉNEMENT */}
       {createModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="relative bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="relative bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-100 my-auto max-h-[92dvh] overflow-y-auto">
             <button
               onClick={() => setCreateModalOpen(false)}
               className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-100"

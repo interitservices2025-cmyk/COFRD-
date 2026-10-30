@@ -33,9 +33,9 @@ export default function AProposPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16 sm:space-y-20">
         {/* Mission / Vision / Vision artistique */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {[
             {
               icon: Target, color: 'bg-blue-100 text-blue-700',
@@ -65,7 +65,7 @@ export default function AProposPage() {
           ].map((bloc, i) => {
             const Icon = bloc.icon;
             return (
-              <div key={i} className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <div key={i} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm md:last:col-span-2 lg:last:col-span-1">
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${bloc.color} mb-5`}>
                   <Icon className="w-6 h-6" />
                 </div>
@@ -138,7 +138,7 @@ export default function AProposPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               { title: 'Organismes communautaires', icon: HeartHandshake, color: 'text-blue-700 bg-blue-50', orgs: communautaireOrgs },
               { title: 'Institutions scolaires', icon: GraduationCap, color: 'text-emerald-700 bg-emerald-50', orgs: scolaireOrgs },
@@ -146,7 +146,7 @@ export default function AProposPage() {
             ].map((group, i) => {
               const Icon = group.icon;
               return (
-                <div key={i} className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div key={i} className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden md:last:col-span-2 lg:last:col-span-1">
                   <div className="p-6 border-b border-slate-100 flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${group.color}`}>
                       <Icon className="w-5 h-5" />

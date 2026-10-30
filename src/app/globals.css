@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-xs: 480px;
   --color-cofrd-blue: #1b365d;
   --color-cofrd-blue-dark: #11233d;
   --color-cofrd-blue-light: #eef3f9;
@@ -20,12 +21,21 @@
   --foreground: #0f172a;
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
+  overflow-x: hidden;
+  width: 100%;
   background-color: var(--background);
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Accessibilité et focus visible aux couleurs officielles */

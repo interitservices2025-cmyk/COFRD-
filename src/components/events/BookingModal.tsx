@@ -83,9 +83,9 @@ export default function BookingModal({ event, isOpen, onClose }: BookingModalPro
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
       <div 
-        className="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150"
+        className="relative bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-100 my-auto max-h-[92dvh] overflow-y-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -121,7 +121,7 @@ export default function BookingModal({ event, isOpen, onClose }: BookingModalPro
         </div>
 
         {/* Indicateur de places restantes */}
-        <div className={`p-3 rounded-xl mb-6 text-xs flex items-center justify-between ${
+        <div className={`p-3 rounded-xl mb-6 text-xs flex flex-wrap items-center justify-between gap-1.5 ${
           isSoldOut ? 'bg-rose-50 text-rose-700 border border-rose-200' :
           remainingSeats < 15 ? 'bg-amber-50 text-amber-800 border border-amber-200' :
           'bg-emerald-50 text-emerald-800 border border-emerald-200'
@@ -181,7 +181,7 @@ export default function BookingModal({ event, isOpen, onClose }: BookingModalPro
             )}
 
             {/* Nombre de places */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Nombre de places

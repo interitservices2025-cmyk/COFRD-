@@ -62,9 +62,9 @@ function ContactFormInner() {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10">
-      <h2 className="text-2xl font-bold text-slate-900 mb-2">Envoyez-nous un message</h2>
-      <p className="text-slate-600 text-sm mb-6">
+    <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-10">
+      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Envoyez-nous un message</h2>
+      <p className="text-slate-600 text-xs sm:text-sm mb-6">
         Remplissez ce formulaire et notre équipe vous répondra dans un délai de 24 à 48 heures ouvrables.
       </p>
 

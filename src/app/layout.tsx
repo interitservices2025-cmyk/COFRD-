@@ -1,8 +1,15 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BannerInfo from '@/components/layout/BannerInfo';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#1b365d',
+};
 
 export const metadata: Metadata = {
   title: 'COFRD — Conseil des Organismes Francophones de la Région de Durham',

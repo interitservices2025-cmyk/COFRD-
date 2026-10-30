@@ -74,13 +74,13 @@ export default function ServicesGrid() {
         </div>
 
         {/* Grille des 3 services phares */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((s) => {
             const Icon = s.icon;
             return (
               <div 
                 key={s.id}
-                className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group md:last:col-span-2 lg:last:col-span-1"
               >
                 <div>
                   {/* Icône & badge */}

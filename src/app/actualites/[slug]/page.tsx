@@ -97,7 +97,7 @@ export default async function NewsDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Contenu principal */}
           <div className="lg:col-span-8 space-y-8">
-            <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm space-y-6">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 border border-slate-200 shadow-sm space-y-6">
               {/* Chapeau */}
               <div className="text-base sm:text-lg font-semibold text-slate-700 border-l-4 border-blue-600 pl-4 py-1 leading-relaxed">
                 {article.excerpt}
@@ -134,7 +134,7 @@ export default async function NewsDetailPage({ params }: Props) {
               )}
 
               {/* Signature de l'article */}
-              <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4 text-blue-600" />
                   <span>Rédigé par <strong className="text-slate-800">{article.author}</strong></span>
@@ -144,7 +144,7 @@ export default async function NewsDetailPage({ params }: Props) {
             </div>
 
             {/* Navigation bas de page */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <Link
                 href="/actualites"
                 className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900 transition"

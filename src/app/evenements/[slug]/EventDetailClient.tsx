@@ -54,9 +54,9 @@ export default function EventDetailClient({ event }: Props) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contenu principal */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Description */}
-            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm">
               <h2 className="text-xl font-bold text-slate-900 mb-4">À propos de l'événement</h2>
               <div className="text-slate-600 leading-relaxed space-y-4 text-sm">
                 {(event.longDescription || event.description).split('\n').map((para, i) => (
@@ -67,7 +67,7 @@ export default function EventDetailClient({ event }: Props) {
 
             {/* Tarification */}
             {!event.isFree && event.priceCategories && event.priceCategories.length > 0 && (
-              <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm">
                 <h2 className="text-xl font-bold text-slate-900 mb-5">Tarification</h2>
                 <div className="space-y-3">
                   {event.priceCategories.map((cat, idx) => (

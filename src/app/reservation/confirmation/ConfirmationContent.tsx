@@ -89,14 +89,14 @@ export default function ConfirmationContent() {
             </div>
           </div>
 
-          <div className="p-6 sm:p-8 space-y-6">
-            <div className="text-center py-6 bg-slate-50 rounded-2xl border border-slate-200">
+          <div className="p-5 sm:p-8 space-y-6">
+            <div className="text-center py-5 sm:py-6 px-3 bg-slate-50 rounded-2xl border border-slate-200">
               <div className="text-xs text-slate-500 mb-2 font-semibold uppercase tracking-wider">Code de réservation</div>
-              <div className="text-3xl font-black text-blue-700 tracking-widest font-mono">{reservation.reservationCode}</div>
+              <div className="text-2xl sm:text-3xl font-black text-blue-700 tracking-widest font-mono break-all">{reservation.reservationCode}</div>
               <div className="text-xs text-slate-400 mt-2">Présentez ce code à l'entrée de l'événement</div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-4 text-sm">
               <div>
                 <div className="text-xs text-slate-500 font-semibold mb-1">Participant</div>
                 <div className="font-bold text-slate-900">{reservation.fullName}</div>

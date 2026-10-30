@@ -8,29 +8,29 @@ export default function BookFeature() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#f97316]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-900/80 rounded-3xl p-8 sm:p-12 border border-slate-700/80 shadow-2xl backdrop-blur-md">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="bg-slate-900/80 rounded-3xl p-6 sm:p-12 border border-slate-700/80 shadow-2xl backdrop-blur-md">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Colonne gauche (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f97316]/20 text-[#f97316] text-xs font-bold border border-[#f97316]/30">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#f97316]/20 text-[#f97316] text-xs font-bold border border-[#f97316]/30">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Publication Numérique Gratuite</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
                 Vivre sa francophonie dans la région de Durham
               </h2>
 
-              <p className="text-slate-300 text-base leading-relaxed">
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                 Le COFRD célèbre la francophonie sous toutes ses couleurs à l’occasion de la Semaine de la francophonie. Fruit d’ateliers d’écriture stimulants offerts aux nouveaux arrivants francophones, ce recueil documente avec émotion et fierté le parcours de quatre femmes immigrantes francophones jusqu’à notre belle région de Durham.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
                 <a
                   href="https://www.cofrd.org//wp-content/uploads/VIVRE-SA-FRANCOPHONIE-DANS-LA-REGION-DE-DURHAM-Final.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 bg-[#f97316] hover:bg-[#ea580c] text-white font-black text-sm px-6 py-3.5 rounded-xl shadow-lg transition"
+                  className="inline-flex items-center justify-center gap-2.5 bg-[#f97316] hover:bg-[#ea580c] text-white font-black text-sm px-6 py-3.5 rounded-xl shadow-lg transition"
                 >
                   <Download className="w-4 h-4 text-white" />
                   <span>Télécharger le livre (PDF)</span>
@@ -38,7 +38,7 @@ export default function BookFeature() {
 
                 <Link
                   href="/actualites/livre-numerique-vivre-sa-francophonie-durham"
-                  className="inline-flex items-center gap-2 text-slate-300 hover:text-white text-sm font-semibold px-4 py-3.5 rounded-xl border border-slate-700 hover:bg-slate-800 transition"
+                  className="inline-flex items-center justify-center gap-2 text-slate-300 hover:text-white text-sm font-semibold px-4 py-3.5 rounded-xl border border-slate-700 hover:bg-slate-800 transition"
                 >
                   <span>En savoir plus sur le projet</span>
                 </Link>

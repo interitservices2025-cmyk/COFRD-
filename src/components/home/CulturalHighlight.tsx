@@ -69,7 +69,7 @@ export default function CulturalHighlight({ events }: CulturalHighlightProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {upcomingEvents.map((evt) => {
               const remaining = evt.capacity - evt.reservedCount;
               const isSoldOut = remaining <= 0;
@@ -77,7 +77,7 @@ export default function CulturalHighlight({ events }: CulturalHighlightProps) {
               return (
                 <div
                   key={evt.id}
-                  className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between hover:shadow-xl transition-all duration-300 group"
+                  className="bg-slate-50 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between hover:shadow-xl transition-all duration-300 group md:last:col-span-2 lg:last:col-span-1"
                 >
                   <div>
                     {/* Image avec badges superposés */}

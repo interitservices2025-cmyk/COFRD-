@@ -18,9 +18,9 @@ export default function CommunitySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {/* Carte 1 : Devenir Bénévole */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-[#f97316]/10 text-[#f97316] flex items-center justify-center">
                 <HeartHandshake className="w-7 h-7" />
@@ -59,7 +59,7 @@ export default function CommunitySection() {
           </div>
 
           {/* Carte 2 : Devenir Membre ou Partenaire */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-[#1b365d]/10 text-[#1b365d] flex items-center justify-center">
                 <UserPlus className="w-7 h-7" />
