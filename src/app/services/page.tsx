@@ -109,7 +109,7 @@ export default function ServicesPage() {
             <div key={service.id} id={service.id} className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-3">
                 {/* Panneau de gauche */}
-                <div className="bg-slate-50 border-b lg:border-b-0 lg:border-r border-slate-200 p-8 space-y-6">
+                <div className="bg-slate-50 border-b lg:border-b-0 lg:border-r border-slate-200 p-5 sm:p-8 space-y-5 sm:space-y-6">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${service.colorClass}`}>
                     <Icon className="w-7 h-7" />
                   </div>
@@ -172,7 +172,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Panneau de droite : détails */}
-                <div className="lg:col-span-2 p-8">
+                <div className="lg:col-span-2 p-5 sm:p-8">
                   <h3 className="text-base font-bold text-slate-900 mb-5">Ce que nous offrons</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {service.features.map((feat, i) => (

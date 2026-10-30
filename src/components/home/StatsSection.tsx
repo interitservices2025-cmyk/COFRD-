@@ -15,19 +15,19 @@ export default function StatsSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Chiffres clés */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 mb-14 sm:mb-20">
           {stats.map((s, idx) => (
             <div 
               key={idx}
-              className="bg-slate-800/60 rounded-3xl p-6 sm:p-8 border border-slate-700/60 text-center space-y-2 backdrop-blur-xs"
+              className="bg-slate-800/60 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-slate-700/60 text-center space-y-1.5 sm:space-y-2 backdrop-blur-xs"
             >
-              <div className="text-4xl sm:text-5xl font-black text-[#f97316] tracking-tight">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#f97316] tracking-tight">
                 {s.value}
               </div>
-              <div className="text-base font-bold text-white">
+              <div className="text-xs sm:text-base font-bold text-white">
                 {s.label}
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-[11px] sm:text-xs text-slate-400">
                 {s.sub}
               </div>
             </div>

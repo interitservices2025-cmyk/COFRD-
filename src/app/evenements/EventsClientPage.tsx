@@ -41,38 +41,38 @@ export default function EventsClientPage({ events }: Props) {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero section */}
-      <div className="bg-gradient-to-b from-blue-950 via-slate-900 to-slate-900 text-white py-16 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-blue-950 via-slate-900 to-slate-900 text-white py-12 sm:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]" />
         <div className="absolute -top-20 right-0 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-300 text-xs font-bold mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            Saison culturelle 2025–2027
+            Saison culturelle 2026–2027
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
             Programmation culturelle <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-amber-300">& Billetterie</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-amber-300">&amp; Billetterie</span>
           </h1>
-          <p className="text-slate-300 max-w-2xl text-lg">
+          <p className="text-slate-300 max-w-2xl text-base sm:text-lg">
             Spectacles, concerts, ateliers et célébrations francophones dans toute la région de Durham. Réservez directement en ligne.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         {/* Filtres */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 sm:p-4 mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center justify-between">
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-slate-500" />
-            <span className="text-sm font-bold text-slate-700">Filtrer :</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-700">Filtrer :</span>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition ${
+                className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-semibold border transition ${
                   selectedCategory === cat.value
                     ? 'bg-blue-700 text-white border-blue-700'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-400 hover:text-blue-700'
@@ -83,7 +83,7 @@ export default function EventsClientPage({ events }: Props) {
             ))}
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700 pt-1 sm:pt-0">
             <input
               type="checkbox"
               checked={showFreeOnly}

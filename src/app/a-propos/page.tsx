@@ -65,7 +65,7 @@ export default function AProposPage() {
           ].map((bloc, i) => {
             const Icon = bloc.icon;
             return (
-              <div key={i} className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <div key={i} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${bloc.color} mb-5`}>
                   <Icon className="w-6 h-6" />
                 </div>
