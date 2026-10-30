@@ -329,8 +329,12 @@ export default function Header() {
               className="inline-flex items-center gap-1.5 xl:gap-2 whitespace-nowrap bg-[#1b365d] hover:bg-[#11233d] text-white font-bold text-xs xl:text-sm px-3 py-2.5 xl:px-4.5 xl:py-2.5 rounded-xl shadow-xs hover:shadow-md transition-all shrink-0 ml-1 xl:ml-2 focus-visible:outline-2 focus-visible:outline-[#1b365d]"
             >
               <Ticket className="w-4 h-4 text-[#f97316] shrink-0" aria-hidden="true" />
+<<<<<<< HEAD
               <span className="xl:hidden">Billetterie</span>
               <span className="hidden xl:inline">Billetterie &amp; Inscriptions</span>
+=======
+              <span>Billetterie &amp; Inscriptions</span>
+>>>>>>> 14078b4c7818738a63463e0911046ed7692cefc5
             </Link>
           </div>
 
